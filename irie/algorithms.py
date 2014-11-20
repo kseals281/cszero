@@ -195,13 +195,26 @@ def QuickSort(items):
         return left + equal + right
 
 def MergeSort(items):
-    if len(items) > 1:
-        left = items[:len(items) / 2]
-        right = items[len(items) / 2:]
-        left = MergeSort(left)
-        right = MergeSort(right)
-    else:
-        final_list = []
+    result = []
+    if len(items) < 2:
+        return items
+    left = items[:len(items) / 2]
+    right = items[len(items) / 2:]
+    left = MergeSort(left)
+    right = MergeSort(right)
+    a = 0
+    b = 0
+    while a < len(left) and b < len(right):
+        if left[a] > right[b]:
+            result.append(right[b])
+            b += 1
+        else:
+            result.append(left[a])
+            a += 1
+    result.extend(left[a:])
+    result.extend(right[b:])                
+    return result
+        
 
 def InsertionSort(items):
     for n in xrange(len(items)):
