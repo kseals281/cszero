@@ -211,7 +211,7 @@ def MergeSort(items):
         else:
             result.append(left[a])
             a += 1
-    result.extend(left[a:])
+    result.extend(left[:])
     result.extend(right[b:])                
     return result
         
@@ -226,7 +226,4 @@ def InsertionSort(items):
         items[n + 1] = value
     return items
             
-    
-def RecursiveBinarySearch():
-    pass
 
