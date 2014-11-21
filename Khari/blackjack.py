@@ -339,5 +339,11 @@ def Play(cards, num_players):
 
 			
 # Add the rest of your Play implementation here.
-   
-Play(GenerateDeck(), 3)
+while True:
+	try:
+		num_players = int(raw_input('Please enter the number of computer opponents: '))
+		break
+	except TypeError:
+		num_players = int(raw_input('Your input was invalid. Please enter the number of computer opponents: '))
+
+Play(GenerateDeck(), num_players)
