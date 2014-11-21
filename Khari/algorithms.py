@@ -63,15 +63,6 @@ Notes:
       * You may not assume the list is sorted.
 """
 
-#x = 0
-#items = ['map', 'disk', 'love', 'lose', 'beat']
-#items = [5, 1, 0, 3, 6, 4, 9, 6, 7, 2, 61, 13, 17, 16, 18]
-#list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] 
-#print items
-#items.sort()
-#print items
-        
-
 """Linear Search
 
 Define a function called LinearSearch that takes in an item to look for and a
@@ -201,7 +192,7 @@ def RecursiveBinarySearching(items, top, bottom, thing):
             bottom = middle
         else:
             return middle
-        return RecursiveBinarySearching(items , top , bottom , thing)
+        return RecursiveBinarySearching(items, top, bottom, thing)
 
 
 def InsertionSort(items):
@@ -302,6 +293,13 @@ def QuickSort(items):
 
     return items
 
+#x = 0
+#items = ['map', 'disk', 'love', 'lose', 'beat']
+#items = [5, 1, 0, 3, 6, 4, 9, 6, 7, 2, 61, 13, 17, 16, 18]
+#list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] 
+#print items
+#items.sort()
+#print items
 
 #print LinearSearch(x, items)
 #print BinarySearch(x, items)
