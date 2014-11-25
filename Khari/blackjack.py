@@ -168,16 +168,16 @@ class Player(object):
         # values.
         total = GetPossibleTotals(self.cards)
         if self.HasBusted(self.cards) == True:
-			return False
+	    return False
         if 21 in total:
-			return False
+	    return False
         elif len(total) == 1 and (20 in total or 19 in total or 18 in total):
-			return False
+	    return False
         elif len(total) > 1 and total[0] > 17:
-			return False
+	    return False
         else:
             return True
-		#print self.cards  # prints out the player's cards
+	#print self.cards  # prints out the player's cards
         #print game.dealer.cards  # prints out the dealer's cards
         
     def ShouldDoubleDown(self, game):
@@ -199,9 +199,9 @@ class Player(object):
         """
         total = GetPossibleTotals(self.cards)
         if total[0] > 21:
-			return True
+	    return True
         else:
-			return False
+	    return False
     
 ############################ DO NOT TOUCH THIS CODE ############################
 
@@ -249,8 +249,8 @@ def Deal(cards, game):
     """
     Shuffle(cards)
     for i in xrange(2):
-		for x in xrange(len(game.players)):
-			(game.players[x]).cards.append(cards.pop(0))
+	for x in xrange(len(game.players)):
+	    (game.players[x]).cards.append(cards.pop(0))
     game.dealer.cards.append(cards.pop(0))
     game.dealer.cards.append(cards.pop(0))
 		
@@ -276,74 +276,84 @@ def Play(cards, num_players):
     Deal(cards, game)
     final = []
     for i in xrange(len(game.players)):
-		while len(game.players) >= i:
-			decision = Player.ShouldHit(game.players[i], game)
-			print 'Player', i + 1, '\b\'s cards are: ', game.players[i].cards
-			print 'Their possible card total(s):', GetPossibleTotals(game.players[i].cards)
-			if decision == True:
-				if len(game.players[i].cards) == 5:
-					print 'They got 5 cards and did not bust\n\n'
-					final.append(21)
-					break
-				print 'They have decided to hit'
-				game.players[i].cards.append(cards.pop(0))
-				pause = raw_input('Press any key to continue....\n\n')
-			elif decision == False and game.players[i].HasBusted(game.players[i].cards) == False:
-				for o in xrange(len(GetPossibleTotals(game.players[i].cards))):
-					if (GetPossibleTotals(game.players[i].cards))[o] > 21:
-						o -= 1
-						break
-				final.append((GetPossibleTotals(game.players[i].cards))[o])
-				print 'They have decided to stay'
-				pause = raw_input('Press any key to continue....\n\n')
-				break
-			else:
-				final.append((GetPossibleTotals(game.players[i].cards))[0])
-				print 'They have busted'
-				pause = raw_input('Press any key to continue....\n\n')
-				break
-		print 'Current scoreboard:', final
-    while Dealer.ShouldHit(game.dealer, game) == True and 21 not in GetPossibleTotals(game.dealer.cards) and game.dealer.HasBusted(game.dealer.cards) == False:
-		if min(final) > 21:
+	while len(game.players) >= i:
+	    decision = Player.ShouldHit(game.players[i], game)
+	    print '\n\nPlayer', i + 1, '\b\'s cards are: ', game.players[i].cards
+	    print 'Their possible card total(s):', GetPossibleTotals(game.players[i].cards)
+	    if len(game.players[i].cards) == 5:
+		print 'They got 5 cards and did not bust'
+		final.append(21)
+		break
+	    if decision == True:
+		print 'They have decided to hit'
+		game.players[i].cards.append(cards.pop(0))
+		pause = raw_input('Press any key to continue....')
+	    elif decision == False and game.players[i].HasBusted(game.players[i].cards) == False:
+		for o in xrange(len(GetPossibleTotals(game.players[i].cards))):
+		    if (GetPossibleTotals(game.players[i].cards))[o] > 21:
+			o -= 1
 			break
-		print 'The Dealer\'s cards are:', game.dealer.cards
-		print 'His possible total(s):', GetPossibleTotals(game.dealer.cards)
-		game.dealer.cards.append(cards.pop(0))
-		pause = raw_input('Press any key to continue....\n\n')
-    print 'The Dealer\'s cards are:', game.dealer.cards
+		final.append((GetPossibleTotals(game.players[i].cards))[o])
+		print 'They have decided to stay'
+		pause = raw_input('Press any key to continue....')
+		break
+	    else:
+		final.append((GetPossibleTotals(game.players[i].cards))[0])
+		print 'They have busted'
+		pause = raw_input('Press any key to continue....')
+		break
+	print '\n\nCurrent scoreboard:', final
+    while Dealer.ShouldHit(game.dealer, game) == True and 21 not in GetPossibleTotals(game.dealer.cards) and game.dealer.HasBusted(game.dealer.cards) == False:
+	if min(final) > 21:
+	    break
+	print '\n\nThe Dealer\'s cards are:', game.dealer.cards
+	print 'His possible total(s):', GetPossibleTotals(game.dealer.cards)
+	game.dealer.cards.append(cards.pop(0))
+	pause = raw_input('Press any key to continue....')
+    print '\n\nThe Dealer\'s cards are:', game.dealer.cards
     print 'His final total(s):', GetPossibleTotals(game.dealer.cards)
     pause = raw_input('Press any key to continue....\n\n')
     for o in xrange(len(GetPossibleTotals(game.dealer.cards))):
-	    if game.dealer.cards[o] > 21:
-			o -= 1
-			break
+	if game.dealer.cards[o] > 21:
+	    o -= 1
+	    break
     final.append((GetPossibleTotals(game.dealer.cards))[o])
     print final
     winner = 0
     tie = []
     for i in xrange(len(final)):
-		if final[i] <= 21 and final[i] > winner:
-			winner = final[i]
-			del tie[:]
-			tie.append(i + 1)
-		elif final[i] <= 21 and final[i] == winner:
-			tie.append(i + 1)
+	if final[i] <= 21 and final[i] > winner:
+	    winner = final[i]
+	    del tie[:]
+	    tie.append(i + 1)
+	elif final[i] <= 21 and final[i] == winner:
+	    tie.append(i + 1)
     if len(tie) > 1:
-		print '\n\nThe winners are', tie, 'with the score of', winner
+	print '\n\nThe winners are {0} with the score of {1}'.format(tie, winner)
     elif winner == 0:
-		print '\n\nEveryone busted. The house wins'
+	print '\n\nEveryone busted. The house wins'
     elif final.index(winner) == (len(final) - 1):
-		print '\n\nThe winner is the Dealer with a score of', winner
+	print '\n\nThe winner is the Dealer with a score of', winner
     else:
-		print '\n\nThe winner is Player', final.index(winner) + 1, 'with a score of', winner
+	print '\n\nThe winner is Player', final.index(winner) + 1, 'with a score of', winner
 
 			
 # Add the rest of your Play implementation here.
 while True:
-	try:
-		num_players = int(raw_input('Please enter the number of computer opponents: '))
-		break
-	except TypeError:
-		num_players = int(raw_input('Your input was invalid. Please enter the number of computer opponents: '))
+    try:
+	num_players = int(raw_input('Please enter the number of computer opponents. This does not include the dealer: '))
+	break
+    except ValueError:
+	print 'Your input was invalid'
+
+human = raw_input('\nWill there be a human player? (y/n) ')
+human = human.lower()
+while True:
+    if human == 'y' or human == 'n':
+	break
+    human = raw_input('\nYour input was invalid. Will there be a human player? (y/n) ')
+    human.lower()
+    print human, type(human)
+    
 
 Play(GenerateDeck(), num_players)
