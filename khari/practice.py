@@ -37,7 +37,12 @@ numbers in a list. It should return the total sum of all of the numbers.
 """
 
 def SumWithWhile(numbers):
-    pass
+    sums = 0
+    i = 0
+    while len(numbers) > i:
+        sums += numbers[i]
+        i += 1
+    return sums
 
 
 """Problem 2: 5 points
@@ -48,7 +53,10 @@ the numbers.
 """
 
 def SumWithFor(numbers):
-    pass
+    sums = 0
+    for i in numbers:
+        sums += i
+    return sums
 
 
 """Problem 3: 5 points
@@ -59,7 +67,10 @@ starting with 0 (0 is the first even number in my book).
 """
 
 def EvenNumbers(n):
-    pass
+    number = []
+    for i in xrange(0, n * 2, 2):
+        number.append(i)
+    return number
 
 
 """Problem 4: 10 points
@@ -71,7 +82,10 @@ Example:
 """
 
 def PowersOf2(n):
-    pass
+    numbers = []
+    for i in xrange(n):
+        numbers.append(2**i)
+    return numbers
 
 
 """Problem 5: 10 points
@@ -82,7 +96,10 @@ string.
 """
 
 def ReverseString(s):
-    pass
+    backwards = ''
+    for i in s:
+        backwards = i + backwards
+    return backwards
     
 """Problem 6: 10 points
 
@@ -93,7 +110,10 @@ palindrome, False otherwise.
 """
 
 def IsPalindrome(s):
-    pass
+    backwards = ReverseString(s)
+    if backwards == s:
+        return True
+    return False
 
 """ Problem 7: 10 points
 Write a function to determine if one string is an anagram of another string 
@@ -107,7 +127,11 @@ example, if you call sorted('hello'), you get back the list
 """
 
 def AreAnagrams(a, b):
-    pass
+    a = sorted(a)
+    b = sorted(b)
+    if a == b:
+        return True
+    return False
 
 
 """Problem 8: 15 points
@@ -118,7 +142,10 @@ must use at least one loop (you can choose between for and while)
 """
 
 def HasDuplicates(items):
-    pass
+    for i in items:
+        if items.count(i) > 1:
+            return True
+    return False
     
 
 """Problem 9: 15 points
@@ -135,7 +162,8 @@ Examples:
 """
 
 def CountOccurrences(s, char):
-    pass
+    s = list(s)
+    return s.count(char)
 
 """Problem 10: 15 points 
 
@@ -163,7 +191,18 @@ DIVIDE = '/'
 MODULO = '%'
 
 def Calculate(opearator, x, y):
-    pass
+    if (opearator == MODULO or opearator == DIVIDE) and y == 0:
+        return None
+    if opearator == ADD:
+        return x + y
+    if opearator == SUBTRACT:
+        return x - y
+    if opearator == MULTIPLY:
+        return x * y
+    if opearator == DIVIDE:
+        return x / y
+    if opearator == MODULO:
+        return x % y
 
 
 """Problem 11: 15 points 
@@ -179,7 +218,13 @@ Examples:
 """
 
 def CharacterCounts(s):
-    pass
+    count = {}
+    for i in list(s):
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+    return count
 
 
 """Problem 12 (Extra Credit): 15 points
@@ -199,4 +244,18 @@ Examples:
 """
 
 def MakeChange(cents):
-    pass
+    change = {'quarters': 0, 'dimes': 0, 'nickles': 0, 'pennies': 0}
+    while cents > 0:
+        if (cents / 25) >= 1:
+            change['quarters'] += 1
+            cents -= 25
+        if ((cents % 25) / 10) >= 1:
+            change['dimes'] += 1
+            cents -= 10
+        if (((cents % 25) % 10) / 5) >= 1:
+            change['nickles'] += 1
+            cents -= 5
+        if (((cents % 25) % 10) % 5) >= 1:
+            change['pennies'] += 1
+            cents -= 1
+    return change
